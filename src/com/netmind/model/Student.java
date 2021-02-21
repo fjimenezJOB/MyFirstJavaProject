@@ -3,13 +3,14 @@ package com.netmind.model;
 import java.util.Date;
 
 public class Student {
-    private Integer idStudent;
+
+    private String idStudent;
     private String name;
     private String surname;
     private Integer age;
     private Date dateOfBirth;
 
-    public Student(Integer idStudent, String name, String surname, Integer age, Date dateOfBirth) {
+    public Student(String idStudent, String name, String surname, Integer age, Date dateOfBirth) {
         super();
         this.idStudent = idStudent;
         this.name = name;
@@ -87,11 +88,11 @@ public class Student {
         return builder.toString();
     }
 
-    public Integer getIdStudent() {
+    public String getIdStudent() {
         return idStudent;
     }
 
-    public void setIdStudent(Integer idStudent) {
+    public void setIdStudent(String idStudent) {
         this.idStudent = idStudent;
     }
 
