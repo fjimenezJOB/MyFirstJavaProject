@@ -19,7 +19,10 @@ public class Principal {
                     break;
                 case 4:
                     interruptor = false;
-
+                    break;
+                default:
+                    Menu.hello();
+                    break;
             }
         }
     }
