@@ -5,7 +5,7 @@ public class Principal {
 
         Boolean interruptor = true;
 
-        while (interruptor) {
+        do {
 
             int decission = Menu.hello();
 
@@ -24,6 +24,6 @@ public class Principal {
                     Menu.hello();
                     break;
             }
-        }
+        } while (interruptor);
     }
 }
