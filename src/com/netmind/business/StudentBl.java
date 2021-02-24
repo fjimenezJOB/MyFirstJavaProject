@@ -1,29 +1,27 @@
 package com.netmind.business;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
+
+import com.netmind.dao.StudentDao;
+import com.netmind.model.Student;
 
 public class StudentBl {
 
-    public static int calculateAge(String dateOfBirth) {
+    public boolean add(Student student) {
 
-        // Calculo de la edad
-        Calendar cal = Calendar.getInstance();
+        StudentDao studentDao = new StudentDao();
+        student.setAge(calculateAge(student.getDateOfBirth()));
+        return studentDao.add(student);
+    }
 
-        String[] dateOfBirthSeparated = dateOfBirth.split("/");
-
-        Integer yearOfbirth = Integer.parseInt(dateOfBirthSeparated[2]);
-        Integer actualYear = cal.get(Calendar.YEAR);
-
-        Integer monthOfBirth = Integer.parseInt(dateOfBirthSeparated[1]);
-        Integer actualMonth = cal.get(Calendar.MONTH);
-
-        Integer ageCalculated = actualYear - yearOfbirth;
-
-        if (actualMonth < monthOfBirth) {
-            ageCalculated -= 1;
-        }
-
-        return ageCalculated;
+    public static int calculateAge(Date dateOfBirth) {
+        
+        Period edad = Period.between(dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                LocalDate.now());
+        return edad.getYears();
 
     }
 
