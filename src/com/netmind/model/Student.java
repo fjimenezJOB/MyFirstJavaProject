@@ -2,7 +2,7 @@ package com.netmind.model;
 
 import java.util.Date;
 
-public class Student {
+public class Student extends NetmindObject{
 
     private String idStudent;
     private String name;
