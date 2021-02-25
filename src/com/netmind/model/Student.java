@@ -2,7 +2,7 @@ package com.netmind.model;
 
 import java.util.Date;
 
-public class Student extends NetmindObject{
+public class Student extends NetmindObject {
 
     private String idStudent;
     private String name;
@@ -74,7 +74,7 @@ public class Student extends NetmindObject{
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Student [idStudent=");
+        builder.append("idStudent=");
         builder.append(idStudent);
         builder.append(", name=");
         builder.append(name);
