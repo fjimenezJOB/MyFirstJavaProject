@@ -14,7 +14,7 @@ public class Menu {
 
     Scanner scanner = new Scanner(System.in);
     System.out.println(
-        "******** MENU ********\n\nWellcome, what you want to do?\n\n1. Add new student.\n2. Calculate oldest student.\n3. Calculate the average age of students.\n0. Exit");
+        "******** MENU ********\n\nWellcome, what you want to do?\n\n1. Add new student.\n2. Calculate oldest student.\n3. Calculate the average age of students.\n4. Exit");
     int decission = scanner.nextInt();
 
     return decission;
@@ -28,7 +28,7 @@ public class Menu {
 
       do {
         int decission = Menu.hello();
-        EnumStudents enumStudent = EnumStudents.values()[decission];
+        EnumStudents enumStudent = EnumStudents.fromValue(decission);
 
         switch (enumStudent) {
           case ADD_STUDENT:
