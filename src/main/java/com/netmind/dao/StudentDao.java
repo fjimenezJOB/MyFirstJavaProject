@@ -6,13 +6,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.UUID;
 
 public class StudentDao {
@@ -45,7 +42,8 @@ public class StudentDao {
           Integer index = 0;
 
           while ((line = bufferedReader.readLine()) != null) {
-            // Por cada linea que lee del txt agrega una nueva posicion en el array studentsTxt
+            // Por cada linea que lee del txt agrega una nueva posicion en el array
+            // studentsTxt
             // studentsTxt[0] = "jfnsjdfn-fusudfd-f55d4fsd4f,Fran,Jimenez,22, 22/02/1998"
             ArrayList<String> studentsTxt = new ArrayList();
 

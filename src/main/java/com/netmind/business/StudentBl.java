@@ -17,10 +17,11 @@ public class StudentBl {
         return studentDao.add(student);
     }
 
-    public static int calculateAge(Date dateOfBirth) {
+    public static int calculateAge(LocalDate dateOfBirth) {
         
-        Period edad = Period.between(dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-                LocalDate.now());
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        Date date = Date.from(dateOfBirth.atStartOfDay(defaultZoneId).toInstant());
+        Period edad = Period.between(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
         return edad.getYears();
 
     }
