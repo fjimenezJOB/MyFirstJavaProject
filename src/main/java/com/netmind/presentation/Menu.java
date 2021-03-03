@@ -7,9 +7,7 @@ import com.netmind.model.EnumStudents;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.UUID;
@@ -57,7 +55,7 @@ public class Menu {
       } while (interruptor);
     } catch (Exception ex) {
 
-      System.out.println(ex + " - " + "Try to insert a number of options in menu.");
+      System.out.println(ex.getMessage() + " - " + "Try to insert a number of options in menu.");
     }
   }
 
