@@ -1,10 +1,16 @@
 package com.netmind.presentation;
 
 import com.netmind.business.StudentBl;
+import com.netmind.dao.StudentDao;
 import com.netmind.model.Student;
 import com.netmind.model.EnumStudents;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -33,7 +39,9 @@ public class Menu {
         switch (enumStudent) {
           case ADD_STUDENT:
             Student student = new Student();
+            StudentDao dao = new StudentDao();
             Menu.askNewStudent(student);
+            // dao.readAllStudentTxt();
             break;
           case CALCULATE_OLDST_STUDENT:
             break;
@@ -53,7 +61,7 @@ public class Menu {
     }
   }
 
-  public static void askNewStudent(Student student) {
+  public static void askNewStudent(Student student) throws IOException, ParseException {
     StudentBl studentBl = new StudentBl();
 
     Scanner scanner = new Scanner(System.in);
@@ -65,16 +73,11 @@ public class Menu {
     System.out.println("Enter the surname:");
     student.setSurname(scanner.nextLine());
 
-    System.out.println("Enter the date of birth (dd/mm/yyyy):");
+    System.out.println("Enter the date of birth (yyyy/mm/dd):");
 
-    try {
-
-      student.setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine()));
-      studentBl.add(student);
-
-    } catch (ParseException ex) {
-      System.out.println(ex.getMessage());
-      ex.printStackTrace();
-    }
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    LocalDate dateTime = LocalDate.parse(scanner.nextLine(), formatter);
+    student.setDateOfBirth(dateTime);
+    studentBl.add(student);
   }
 }

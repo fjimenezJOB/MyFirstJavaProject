@@ -17,4 +17,8 @@ public class NetmindObject {
     public UUID getUUID() {
         return uuid;
     }
+
+    public void setUUID(UUID uuid) {
+        this.uuid = uuid;
+    }
 }
