@@ -1,6 +1,6 @@
 package com.netmind.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Student extends NetmindObject {
 
@@ -8,9 +8,9 @@ public class Student extends NetmindObject {
     private String name;
     private String surname;
     private Integer age;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
-    public Student(String idStudent, String name, String surname, Integer age, Date dateOfBirth) {
+    public Student(String idStudent, String name, String surname, Integer age, LocalDate dateOfBirth) {
         super();
         this.idStudent = idStudent;
         this.name = name;
@@ -88,6 +88,20 @@ public class Student extends NetmindObject {
         return builder.toString();
     }
 
+    public String toTxtFile() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(idStudent);
+		builder.append(",");
+		builder.append(name);
+		builder.append(",");
+		builder.append(surname);
+		builder.append(",");
+		builder.append(age);
+		builder.append(",");
+		builder.append(dateOfBirth);
+		return builder.toString();
+	}
+
     public String getIdStudent() {
         return idStudent;
     }
@@ -120,11 +134,11 @@ public class Student extends NetmindObject {
         this.age = age;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
