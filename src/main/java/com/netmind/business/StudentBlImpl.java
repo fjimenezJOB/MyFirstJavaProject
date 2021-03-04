@@ -5,10 +5,11 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.netmind.business.contracts.StudentBl;
 import com.netmind.dao.StudentDao;
 import com.netmind.model.Student;
 
-public class StudentBl {
+public class StudentBlImpl implements StudentBl {
 
     public boolean add(Student student) {
 
@@ -17,7 +18,7 @@ public class StudentBl {
         return studentDao.add(student);
     }
 
-    public static int calculateAge(LocalDate dateOfBirth) {
+    public int calculateAge(LocalDate dateOfBirth) {
         
         ZoneId defaultZoneId = ZoneId.systemDefault();
         Date date = Date.from(dateOfBirth.atStartOfDay(defaultZoneId).toInstant());
