@@ -1,6 +1,6 @@
 package com.netmind.presentation;
 
-import com.netmind.business.StudentBl;
+import com.netmind.business.StudentBlImpl;
 import com.netmind.dao.StudentDao;
 import com.netmind.model.Student;
 import com.netmind.model.EnumStudents;
@@ -60,7 +60,7 @@ public class Menu {
   }
 
   public static void askNewStudent(Student student) throws IOException, ParseException {
-    StudentBl studentBl = new StudentBl();
+    StudentBlImpl studentBl = new StudentBlImpl();
 
     Scanner scanner = new Scanner(System.in);
     student.setIdStudent(UUID.randomUUID().toString());
