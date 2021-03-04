@@ -1,7 +1,7 @@
 package com.netmind.presentation;
 
 import com.netmind.business.StudentBlImpl;
-import com.netmind.dao.StudentDao;
+import com.netmind.dao.StudentDaoImpl;
 import com.netmind.model.Student;
 import com.netmind.model.EnumStudents;
 
@@ -37,7 +37,7 @@ public class Menu {
         switch (enumStudent) {
           case ADD_STUDENT:
             Student student = new Student();
-            StudentDao dao = new StudentDao();
+            StudentDaoImpl dao = new StudentDaoImpl();
             Menu.askNewStudent(student);
             // dao.readAllStudentTxt();
             break;

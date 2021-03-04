@@ -1,5 +1,6 @@
 package com.netmind.dao;
 
+import com.netmind.dao.contracts.StudentDao;
 import com.netmind.model.Student;
 
 import org.apache.log4j.Logger;
@@ -16,16 +17,16 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.UUID;
 
-public class StudentDao {
+public class StudentDaoImpl implements StudentDao{
 
-  final static Logger logger = Logger.getLogger(StudentDao.class);
+  final static Logger logger = Logger.getLogger(StudentDaoImpl.class);
   static Properties prop = null;
   static InputStream input = null;
 
   static{
     prop = new Properties();
     try {
-      input = StudentDao.class.getResourceAsStream("/config.properties");
+      input = StudentDaoImpl.class.getResourceAsStream("/config.properties");
       prop.load(input);
     } catch (Exception e) {
       logger.error(e.getMessage());
