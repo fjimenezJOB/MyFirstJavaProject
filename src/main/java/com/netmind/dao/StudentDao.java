@@ -2,6 +2,8 @@ package com.netmind.dao;
 
 import com.netmind.model.Student;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,12 +16,15 @@ import java.util.UUID;
 
 public class StudentDao {
 
+  final static Logger logger = Logger.getLogger(StudentDao.class);
+
   public boolean add(Student student) {
     return addStudentToFile(student);
   }
 
   public boolean addStudentToFile(Student student) {
     try (FileWriter writer = new FileWriter("output\\students.txt", true);) {
+      logger.info("Starting add Student in the txt file");
       writer.write(student.toTxtFile());
       writer.write(System.lineSeparator());
       return true;
@@ -33,7 +38,7 @@ public class StudentDao {
   public ArrayList<Student> readAllStudentTxt() throws IOException, ParseException {
     try (FileReader reader = new FileReader("output\\students.txt")) {
       if (reader.ready()) {
-
+        logger.info("Starting read the txt file");
         try {
           BufferedReader bufferedReader = new BufferedReader(reader);
           Student student = new Student();
@@ -42,9 +47,6 @@ public class StudentDao {
           Integer index = 0;
 
           while ((line = bufferedReader.readLine()) != null) {
-            // Por cada linea que lee del txt agrega una nueva posicion en el array
-            // studentsTxt
-            // studentsTxt[0] = "jfnsjdfn-fusudfd-f55d4fsd4f,Fran,Jimenez,22, 22/02/1998"
             ArrayList<String> studentsTxt = new ArrayList();
 
             studentsTxt.add(line);
@@ -65,7 +67,7 @@ public class StudentDao {
             return students;
           }
         } catch (IOException e) {
-          e.printStackTrace();
+          logger.error(e.toString());
         }
       }
     }
