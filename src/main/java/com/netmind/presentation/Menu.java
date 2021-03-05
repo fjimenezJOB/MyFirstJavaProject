@@ -39,7 +39,7 @@ public class Menu {
             Student student = new Student();
             StudentDaoImpl dao = new StudentDaoImpl();
             Menu.askNewStudent(student);
-            // dao.readAllStudentTxt();
+            dao.readAllStudentTxt();
             break;
           case CALCULATE_OLDST_STUDENT:
             break;

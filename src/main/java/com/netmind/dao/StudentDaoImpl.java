@@ -1,29 +1,31 @@
 package com.netmind.dao;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.Scanner;
+import java.util.UUID;
+
+import com.google.gson.Gson;
 import com.netmind.dao.contracts.StudentDao;
 import com.netmind.model.Student;
 
 import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.UUID;
-
-public class StudentDaoImpl implements StudentDao{
+public class StudentDaoImpl implements StudentDao {
 
   final static Logger logger = Logger.getLogger(StudentDaoImpl.class);
   static Properties prop = null;
   static InputStream input = null;
 
-  static{
+  static {
+
     prop = new Properties();
     try {
       input = StudentDaoImpl.class.getResourceAsStream("/config.properties");
@@ -34,13 +36,14 @@ public class StudentDaoImpl implements StudentDao{
     }
   }
 
-
   public boolean add(Student student) {
-    return addStudentToFile(student);
+    addStudentToTxtFile(student);
+    ArrayList<Student> students = readAllStudentTxt();
+    return addStudentToJsonFile(students);
   }
 
-  public boolean addStudentToFile(Student student) {
-    // Llamando al archivo properties para cargar el nombre del archivo
+  public boolean addStudentToTxtFile(Student student) {
+
     try (FileWriter writer = new FileWriter(prop.getProperty("TxtFilename"), true);) {
       logger.info("Creating file if not exists");
       logger.info("Starting add Student in the txt file");
@@ -48,49 +51,56 @@ public class StudentDaoImpl implements StudentDao{
       writer.write(System.lineSeparator());
       logger.info("The sutudent is created");
       return true;
+
     } catch (IOException e) {
       e.printStackTrace();
       return false;
     }
-
   }
 
-  public ArrayList<Student> readAllStudentTxt() throws IOException, ParseException {
-    try (FileReader reader = new FileReader(prop.getProperty("TxtFilename"))) {
-      if (reader.ready()) {
-        logger.info("Starting read the txt file");
-        try {
-          BufferedReader bufferedReader = new BufferedReader(reader);
-          Student student = new Student();
-          ArrayList<Student> students = new ArrayList<Student>();
-          String line;
-          Integer index = 0;
+  public boolean addStudentToJsonFile(ArrayList<Student> students) {
+    logger.info("Starting to write Student in Json File");
+    File archive = new File(prop.getProperty("JsonFilename"));
+    archive.delete();
 
-          while ((line = bufferedReader.readLine()) != null) {
-            ArrayList<String> studentsTxt = new ArrayList();
-
-            studentsTxt.add(line);
-            for (int iterator = 0; iterator < studentsTxt.size(); iterator++) {
-
-              String[] separatedStringStudent = studentsTxt.get(index).split(",");
-              UUID uid = UUID.fromString(separatedStringStudent[0]);
-              student.setUUID(uid);
-              student.setName(separatedStringStudent[1]);
-              student.setSurname(separatedStringStudent[2]);
-              student.setAge(Integer.parseInt(separatedStringStudent[3]));
-              DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-              LocalDate dateTime = LocalDate.parse(separatedStringStudent[4], formatter);
-              student.setDateOfBirth(dateTime);
-              students.add(student);
-              index = index + 1;
-            }
-            return students;
-          }
-        } catch (IOException e) {
-          logger.error(e.toString());
-        }
-      }
+    try (FileWriter writer = new FileWriter(prop.getProperty("JsonFilename"), true);) {
+      Gson gson = new Gson();
+      gson.toJson(students, writer);
+      return true;
+    } catch (Exception ex) {
+      logger.error("Error ocurred writing Student in json file", ex);
+      return false;
     }
-    return null;
+  }
+
+  public ArrayList<Student> readAllStudentTxt() {
+
+    ArrayList<Student> students = new ArrayList<Student>();
+    try {
+      
+      File myObj = new File(prop.getProperty("TxtFilename"));
+      Scanner myReader = new Scanner(myObj);
+
+      while (myReader.hasNextLine()) {
+        Student student = new Student();
+        String data = myReader.nextLine();
+        String[] separatedStringStudent = data.split(",");
+        UUID uid = UUID.fromString(separatedStringStudent[0]);
+        student.setUUID(uid);
+        student.setName(separatedStringStudent[1]);
+        student.setSurname(separatedStringStudent[2]);
+        student.setAge(Integer.parseInt(separatedStringStudent[3]));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateTime = LocalDate.parse(separatedStringStudent[4], formatter);
+        student.setDateOfBirth(dateTime);
+        students.add(student);
+
+      }
+      myReader.close();
+    } catch (FileNotFoundException e) {
+      logger.error("An error occurred while try to read a txt file", e);
+      e.printStackTrace();
+    }
+    return students;
   }
 }
