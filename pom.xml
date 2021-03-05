@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.netmind</groupId>
-  <artifactId>com.netmind.myJavaFirstProjectWMaven</artifactId>
+  <artifactId>JavaFirstProjectWMaven</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>com.netmind.myJavaFirstProjectWMaven</name>
@@ -17,7 +17,22 @@
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub fjimenezJOB Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/fjimenezJOB/MyJavaFirstProject</url>
+    </repository>
+ </distributionManagement>
+
   <dependencies>
+
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.6</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
