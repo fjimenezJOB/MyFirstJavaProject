@@ -1,6 +1,9 @@
 package com.netmind.model;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class Student extends NetmindObject {
 
@@ -140,6 +143,16 @@ public class Student extends NetmindObject {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+        setAge(calculateAge(dateOfBirth));
     }
+
+    private int calculateAge(LocalDate dateOfBirth) {
+
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        Date date = Date.from(dateOfBirth.atStartOfDay(defaultZoneId).toInstant());
+        Period edad = Period.between(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
+        return edad.getYears();
+    }
+
 
 }

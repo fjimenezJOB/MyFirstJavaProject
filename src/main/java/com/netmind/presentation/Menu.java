@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class Menu {
 
     Scanner scanner = new Scanner(System.in);
     System.out.println(
-        "******** MENU ********\n\nWellcome, what you want to do?\n\n1. Add new student.\n2. Calculate oldest student.\n3. Calculate the average age of students.\n4. Exit");
+        "******** MENU ********\n\nWellcome, what you want to do?\n\n1. Add new student.\n2. Calculate oldest student.\n3. Calculate the average age of students.\n4. Update Student\n5.Exit");
     int decission = scanner.nextInt();
 
     return decission;
@@ -38,19 +39,22 @@ public class Menu {
           case ADD_STUDENT:
             Student student = new Student();
             StudentDaoImpl dao = new StudentDaoImpl();
-            Menu.askNewStudent(student);
+            askNewStudent(student);
             dao.readAllStudentTxt();
             break;
           case CALCULATE_OLDST_STUDENT:
             break;
           case CALCULATE_AVERAGE_AGE:
             break;
+          case UPDATE_STUDENT:
+            AskUpdateStudent();
+            break;
           case EXIT:
             interruptor = false;
-
             break;
-          default:
-            Menu.hello();
+            
+        default:
+          Menu.hello();
         }
       } while (interruptor);
     } catch (Exception ex) {
@@ -76,6 +80,13 @@ public class Menu {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     LocalDate dateTime = LocalDate.parse(scanner.nextLine(), formatter);
     student.setDateOfBirth(dateTime);
+
     studentBl.add(student);
+  }
+
+  public static void AskUpdateStudent() {
+    System.out.println("Introduce the name of student to update:");
+    Scanner scanner = new Scanner(System.in);
+    
   }
 }

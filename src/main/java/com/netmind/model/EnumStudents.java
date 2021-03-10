@@ -2,7 +2,7 @@ package com.netmind.model;
 
 public enum EnumStudents {
 
-     ADD_STUDENT(1), CALCULATE_OLDST_STUDENT(2), CALCULATE_AVERAGE_AGE(3), EXIT(4);
+     ADD_STUDENT(1), CALCULATE_OLDST_STUDENT(2), CALCULATE_AVERAGE_AGE(3), UPDATE_STUDENT(4), EXIT(5);
 
     private int value;
 
