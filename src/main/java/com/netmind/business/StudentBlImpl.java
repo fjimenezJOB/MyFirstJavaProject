@@ -14,17 +14,7 @@ public class StudentBlImpl implements StudentBl {
     public boolean add(Student student) {
 
         StudentDaoImpl studentDao = new StudentDaoImpl();
-        student.setAge(calculateAge(student.getDateOfBirth()));
+        // student.setAge(calculateAge(student.getDateOfBirth()));
         return studentDao.add(student);
     }
-
-    public int calculateAge(LocalDate dateOfBirth) {
-        
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        Date date = Date.from(dateOfBirth.atStartOfDay(defaultZoneId).toInstant());
-        Period edad = Period.between(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
-        return edad.getYears();
-
-    }
-
 }
