@@ -19,6 +19,8 @@
 *.tar.gz
 *.rar
 *.json
+*.txt
 .vscode/
 output/
 .settings/
+target/

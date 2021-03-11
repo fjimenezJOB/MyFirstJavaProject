@@ -57,7 +57,7 @@ public class Menu {
       } while (interruptor);
     } catch (Exception ex) {
 
-      System.out.println(ex.getMessage() + " - " + "Try to insert a number of options in menu.");
+      ex.printStackTrace();
     }
   }
 

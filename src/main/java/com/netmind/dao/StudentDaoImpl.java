@@ -111,12 +111,12 @@ public class StudentDaoImpl implements StudentDao {
     return students;
   }
 
-  public void updateStudent(Student student) {
-
+  public void updateStudent(Student student) { 
     try {
-      Path p = Paths.get(prop.getProperty("TxtFilename"));
-      Path tempFile = Files.createTempFile(p.getParent(), "TxtFilenameTemp", ".txt");
-      try (BufferedReader reader = Files.newBufferedReader(p);
+      Path path = Paths.get(prop.getProperty("TxtFilename"));
+      System.out.println(path.toString());
+      Path tempFile = Files.createTempFile("TxtFilenameTemp", ".txt");
+      try (BufferedReader reader = Files.newBufferedReader(path);
           BufferedWriter writer = Files.newBufferedWriter(tempFile)) {
         String line;
 
@@ -136,7 +136,7 @@ public class StudentDaoImpl implements StudentDao {
         }
 
       }
-      Files.copy(tempFile, p, StandardCopyOption.REPLACE_EXISTING);
+      Files.copy(tempFile, path, StandardCopyOption.REPLACE_EXISTING);
       Files.delete(tempFile);
       ArrayList<Student> students = readAllStudentTxt();
       addStudentToJsonFile(students);
