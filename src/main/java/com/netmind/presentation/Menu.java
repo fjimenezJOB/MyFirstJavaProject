@@ -1,17 +1,16 @@
 package com.netmind.presentation;
 
-import com.netmind.business.StudentBlImpl;
-import com.netmind.dao.StudentDaoImpl;
-import com.netmind.model.Student;
-import com.netmind.model.EnumStudents;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
+
+import com.netmind.business.StudentBlImpl;
+import com.netmind.dao.StudentDaoImpl;
+import com.netmind.model.EnumStudents;
+import com.netmind.model.Student;
 
 public class Menu {
 
@@ -19,7 +18,7 @@ public class Menu {
 
     Scanner scanner = new Scanner(System.in);
     System.out.println(
-        "******** MENU ********\n\nWellcome, what you want to do?\n\n1. Add new student.\n2. Calculate oldest student.\n3. Calculate the average age of students.\n4. Update Student\n5.Exit");
+        "******** MENU ********\n\nWellcome, what you want to do?\n\n1. Add new student.\n2. Calculate oldest student.\n3. Calculate the average age of students.\n4. Update Student\n5. Exit");
     int decission = scanner.nextInt();
 
     return decission;
@@ -30,29 +29,28 @@ public class Menu {
     Boolean interruptor = true;
 
     try {
-
       do {
         int decission = Menu.hello();
         EnumStudents enumStudent = EnumStudents.fromValue(decission);
 
         switch (enumStudent) {
-          case ADD_STUDENT:
-            Student student = new Student();
-            StudentDaoImpl dao = new StudentDaoImpl();
-            askNewStudent(student);
-            dao.readAllStudentTxt();
-            break;
-          case CALCULATE_OLDST_STUDENT:
-            break;
-          case CALCULATE_AVERAGE_AGE:
-            break;
-          case UPDATE_STUDENT:
-            AskUpdateStudent();
-            break;
-          case EXIT:
-            interruptor = false;
-            break;
-            
+        case ADD_STUDENT:
+          Student student = new Student();
+          StudentDaoImpl dao = new StudentDaoImpl();
+          askNewStudent(student);
+          dao.readAllStudentTxt();
+          break;
+        case CALCULATE_OLDST_STUDENT:
+          break;
+        case CALCULATE_AVERAGE_AGE:
+          break;
+        case UPDATE_STUDENT:
+          AskUpdateStudent();
+          break;
+        case EXIT:
+          interruptor = false;
+          break;
+
         default:
           Menu.hello();
         }
@@ -85,8 +83,9 @@ public class Menu {
   }
 
   public static void AskUpdateStudent() {
+    StudentBlImpl studentBl = new StudentBlImpl();
     System.out.println("Introduce the name of student to update:");
     Scanner scanner = new Scanner(System.in);
-    
+    studentBl.updateStudent(scanner.nextLine());
   }
 }

@@ -111,7 +111,7 @@ public class StudentDaoImpl implements StudentDao {
     return students;
   }
 
-  public void updateTxtFile(Student student) {
+  public void updateStudent(Student student) {
 
     try {
       Path p = Paths.get(prop.getProperty("TxtFilename"));
@@ -120,7 +120,6 @@ public class StudentDaoImpl implements StudentDao {
           BufferedWriter writer = Files.newBufferedWriter(tempFile)) {
         String line;
 
-        // copy everything until the id is found
         while ((line = reader.readLine()) != null) {
           String[] fields = line.split("[,]");
 
@@ -137,8 +136,6 @@ public class StudentDaoImpl implements StudentDao {
         }
 
       }
-
-      // copy new file & delete temporary file
       Files.copy(tempFile, p, StandardCopyOption.REPLACE_EXISTING);
       Files.delete(tempFile);
       ArrayList<Student> students = readAllStudentTxt();
@@ -156,7 +153,7 @@ public class StudentDaoImpl implements StudentDao {
       if(allStudent.get(i).getName().equals(name)){
        student =  allStudent.get(i);
       }
-      return student;
     }
+    return student;
   }
 }
