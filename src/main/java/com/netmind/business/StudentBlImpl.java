@@ -45,7 +45,6 @@ public class StudentBlImpl implements StudentBl {
 
         case 3:
             System.out.println("Enter the Date of birth (yyyy/MM/dd):");
-            dataToUpdate = scanner.next();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDate dateTime = LocalDate.parse(dataToUpdate, formatter);
             student.setDateOfBirth(dateTime);
