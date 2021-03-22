@@ -32,7 +32,6 @@ public class Menu {
       do {
         int decission = Menu.hello();
         EnumStudents enumStudent = EnumStudents.fromValue(decission);
-
         switch (enumStudent) {
         case ADD_STUDENT:
           Student student = new Student();
